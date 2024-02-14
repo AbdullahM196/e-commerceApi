@@ -71,6 +71,7 @@ const getCart = asyncHandler(async (req, res) => {
     .populate("products.product")
     .exec();
   if (cart) {
+    cart.products = cart.products.filter((product) => product.product !== null);
     cart = await cart.populate("products.product.subCategory", { name: 1 });
     res.status(200).json(cart);
   } else {
