@@ -24,10 +24,6 @@ const querystring = require("querystring");
 app.use(cors(corsOptions));
 app.use(credentials);
 app.options("*", cors(corsOptions));
-app.use((req, res, next) => {
-  console.log("Request headers", req.headers);
-  next();
-});
 dbConnect();
 app.use(express.json());
 app.use(cookieParser());
