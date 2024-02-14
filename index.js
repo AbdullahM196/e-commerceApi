@@ -64,6 +64,9 @@ app.use("/category", categoryRoute);
 app.use("/favorite", favoriteRoute);
 app.use("/cart", cartRoute);
 app.use("/order", OrderRoute);
+app.use("/", (req, res) => {
+  res.send("<h1>Welcome To E-Shop Api</h1>");
+});
 // Error Handling Middleware
 app.use(NotFound);
 app.use(errorHandler);
