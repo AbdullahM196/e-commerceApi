@@ -236,19 +236,23 @@ const deleteUser = asyncHandler(async (req, res) => {
   if (!user) {
     return res.status(404).json({ message: "user not found" });
   }
+
   if (user.img.public_id) {
     await cloudinary.v2.uploader.destroy(user.img.public_id);
   }
-  await orderModel
-    .updateMany(
-      { customer: id },
-      {
-        $set: {
-          customer: "deleted User",
-        },
-      }
-    )
-    .exec();
+  const makerdersBefore = await orderModel.findOne({ _id: id }).exec();
+  if (makerdersBefore) {
+    await orderModel
+      .updateMany(
+        { customer: id },
+        {
+          $set: {
+            customer: "deleted User",
+          },
+        }
+      )
+      .exec();
+  }
 
   const deletedUser = await customerModel.findByIdAndDelete(id).exec();
   res.status(200).json(deletedUser);
