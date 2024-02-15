@@ -1,9 +1,4 @@
-const allowedOrigins = [
-  "http://localhost:5173",
-  "http://localhost:5174",
-  "https://e-shop123.web.app/",
-  "https://e-shop-admin1.web.app/",
-];
+const allowedOrigins = [process.env.LOCALHOST, process.env.ONINTERNET];
 const corsOptions = {
   origin: (origin, callback) => {
     if (!origin) {
